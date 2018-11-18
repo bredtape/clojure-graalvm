@@ -13,9 +13,9 @@ RUN lein uberjar
 
 FROM findepi/graalvm:1.0.0-rc9-native as native
 WORKDIR /project
-COPY --from=builder /project/target/*-standalone.jar /project/app.jar
+COPY --from=builder /project/target/*-standalone.jar app.jar
 # Create completely standalone binary
-RUN /graalvm/bin/native-image -jar /project/app.jar --no-server --static
+RUN /graalvm/bin/native-image --no-server --static -jar app.jar
 
 
 # Copy resulting binary to new and empty image
